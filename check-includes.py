@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from itertools import chain
 from pprint import pprint
 from pathlib import Path
 import subprocess
@@ -110,39 +111,59 @@ moves = []
 with open('includes.json', 'w', encoding='utf-8') as fp:
     json.dump(json_graph.node_link_data(G), fp, indent=4)
 
-for includer, included, path_used in G.edges(data='path'):
-    includer_attrs = G.nodes[includer]
-    included_attrs = G.nodes[included]
-    if included_attrs.get('system_header'):
-        continue
-    if 'path' not in included_attrs:
-        print("Include issue:",
-              G.nodes[includer]['path'], "tries to include", path_used,
-              "but not resolved")
+public_headers = set((f for f in G if G.node[f].get('public')))
+# print(public_headers)
+print(len(public_headers))
 
-    includer_dir = Path(includer_attrs['path']).parent
-    found = [(d/path_used).is_file() for d in (includer_dir, INC)]
-    local_include = includer_dir / path_used
-    common_include = INC / path_used
-    if local_include.is_file():
-        # it's fine
-        continue
-    if common_include.is_file():
-        # it's fine
-        continue
+def find_transitive_included(headers):
+    ret = set(headers)
+    for h in headers:
+        ret = ret.union(set(nx.dfs_successors(G, h)))
+    return ret
 
-    if 'path' not in included_attrs:
 
-        print("Include issue:",
-              includer_attrs['path'],
-              "tries to include", included)
-        continue
-    included_path = included_attrs['path']
-    if includer_attrs['public'] and not included_attrs['public']:
-        # Must make public
-        move = (
-            included_path,
-            INC / (included_path.relative_to(SRC))
-        )
-        print("move:", move)
-        # moves.append()
+transitive = find_transitive_included(public_headers)
+print(len(transitive))
+must_move = set(x for x in transitive if x not in public_headers)
+# for h in transitive:
+#     print(h, G.node[h].get('public'))
+# # print(list(transitive))
+# must_move = (h for h in transitive if not G.node[h].get('public'))
+print(list(must_move))
+
+# for includer, included, path_used in G.edges(data='path'):
+#     includer_attrs = G.nodes[includer]
+#     included_attrs = G.nodes[included]
+#     if included_attrs.get('system_header'):
+#         continue
+#     if 'path' not in included_attrs:
+#         print("Include issue:",
+#               G.nodes[includer]['path'], "tries to include", path_used,
+#               "but not resolved")
+
+#     includer_dir = Path(includer_attrs['path']).parent
+#     found = [(d/path_used).is_file() for d in (includer_dir, INC)]
+#     local_include = includer_dir / path_used
+#     common_include = INC / path_used
+#     if local_include.is_file():
+#         # it's fine
+#         continue
+#     if common_include.is_file():
+#         # it's fine
+#         continue
+
+#     if 'path' not in included_attrs:
+
+#         print("Include issue:",
+#               includer_attrs['path'],
+#               "tries to include", included)
+#         continue
+#     included_path = included_attrs['path']
+#     if includer_attrs['public'] and not included_attrs['public']:
+#         # Must make public
+#         move = (
+#             included_path,
+#             INC / (included_path.relative_to(SRC))
+#         )
+#         print("move:", move)
+#         # moves.append()
