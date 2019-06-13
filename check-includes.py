@@ -150,7 +150,10 @@ for includer, included, path_used in G.edges(data='include_path'):
     includer_dir = Path(includer_attrs['path']).parent
     _, resolved = find_in_dir_list(path_used, (includer_dir, INC))
     if not resolved:
-        print("sed -i {} 's/{}/{}/'".format(includer, path_used, Path(included).relative_to(INC)))
+        cmd = [
+            'sed', '-i', 's:{}:{}:'.format(path_used, Path(included).relative_to(INC)), includer]
+        print("Running", cmd)
+        subprocess.check_call(cmd)
         # print(includer, "includes", path_used,
         #       "but should include", Path(included).relative_to(INC))
 #     found = [(d/path_used).is_file() for d in (includer_dir, INC)]
