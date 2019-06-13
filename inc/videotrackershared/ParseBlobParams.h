@@ -25,8 +25,8 @@
 #pragma once
 
 // Internal Includes
-#include <BlobParams.h>
-#include <GetOptionalParameter.h>
+#include "BlobParams.h"
+#include "GetOptionalParameter.h"
 
 // Library/third-party includes
 #include <json/value.h>

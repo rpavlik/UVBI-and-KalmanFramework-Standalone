@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include <BlobExtractor.h>
+#include "BlobExtractor.h"
 
 // Library/third-party includes
 #include <opencv2/core/core.hpp>

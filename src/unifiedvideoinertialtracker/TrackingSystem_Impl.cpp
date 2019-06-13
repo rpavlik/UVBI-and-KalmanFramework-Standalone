@@ -24,8 +24,8 @@
 
 // Internal Includes
 #include "TrackingSystem_Impl.h"
+#include "EdgeHoleBlobExtractor.h"
 #include "TrackingDebugDisplay.h"
-#include <EdgeHoleBlobExtractor.h>
 
 // Library/third-party includes
 // - none

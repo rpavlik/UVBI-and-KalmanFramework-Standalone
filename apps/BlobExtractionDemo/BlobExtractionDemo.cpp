@@ -23,12 +23,12 @@
 // limitations under the License.
 
 // Internal Includes
-#include <BlobExtractor.h>
-#include <BlobParams.h>
-#include <EdgeHoleBasedLedExtractor.h>
-#include <OptionalStream.h>
-#include <ParseBlobParams.h>
-#include <cvUtils.h>
+#include <videotrackershared/BlobExtractor.h>
+#include <videotrackershared/BlobParams.h>
+#include <videotrackershared/EdgeHoleBasedLedExtractor.h>
+#include <videotrackershared/OptionalStream.h>
+#include <videotrackershared/ParseBlobParams.h>
+#include <videotrackershared/cvUtils.h>
 
 // Library/third-party includes
 #include <json/reader.h>

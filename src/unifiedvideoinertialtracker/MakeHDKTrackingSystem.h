@@ -32,8 +32,8 @@
 #include "TrackedBody.h"
 #include "TrackingSystem.h"
 
-#include <LoadCalibration.h>
-#include <cvToEigen.h>
+#include "LoadCalibration.h"
+#include "cvToEigen.h"
 
 // Library/third-party includes
 // - none

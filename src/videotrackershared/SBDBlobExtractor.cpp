@@ -25,8 +25,8 @@
 // Internal Includes
 #include "videotrackershared/SBDBlobExtractor.h"
 #include "videotrackershared/BlobExtractor.h"
-#include "videotrackershared/cvUtils.h"
 #include "videotrackershared/UVBIAssert.h"
+#include "videotrackershared/cvUtils.h"
 
 // Library/third-party includes
 #include <opencv2/features2d/features2d.hpp>

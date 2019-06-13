@@ -25,11 +25,11 @@
 #pragma once
 
 // Internal Includes
+#include "CameraParameters.h"
 #include "ConfigParams.h"
+#include "GenericBlobExtractor.h"
 #include "RoomCalibration.h"
 #include "TrackingSystem.h"
-#include <CameraParameters.h>
-#include <GenericBlobExtractor.h>
 
 // Library/third-party includes
 #include <Eigen/Core>

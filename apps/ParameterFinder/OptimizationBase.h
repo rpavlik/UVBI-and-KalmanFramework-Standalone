@@ -27,9 +27,9 @@
 // Internal Includes
 #include "UtilityFunctions.h"
 
-#include <ConfigParams.h>
-#include <MakeHDKTrackingSystem.h>
-#include <TrackedBodyTarget.h>
+#include "ConfigParams.h"
+#include "MakeHDKTrackingSystem.h"
+#include "TrackedBodyTarget.h"
 
 // Library/third-party includes
 #include <Eigen/Core>
