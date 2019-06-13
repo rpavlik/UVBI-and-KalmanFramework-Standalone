@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 
 // Library/third-party includes
 // - none

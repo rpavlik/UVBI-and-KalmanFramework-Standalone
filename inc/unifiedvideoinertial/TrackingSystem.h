@@ -26,9 +26,9 @@
 
 // Internal Includes
 #include "BodyIdTypes.h"
-#include "CameraParameters.h"
 #include "ConfigParams.h"
 #include "ImageProcessing.h"
+#include "videotrackershared/CameraParameters.h"
 
 // Library/third-party includes
 #include <Eigen/Core>

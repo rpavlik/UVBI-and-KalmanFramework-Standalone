@@ -27,7 +27,7 @@
 // Internal Includes
 #include "UtilityFunctions.h"
 
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "MakeHDKTrackingSystem.h"
 #include "TrackedBodyTarget.h"
 

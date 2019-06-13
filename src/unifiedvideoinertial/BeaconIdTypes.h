@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
-#include "BodyIdTypes.h"
+#include "videotrackershared/BodyIdTypes.h"
+#include "videotrackershared/UVBIAssert.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
 #include <FlexKalman/TypeSafeId.h>
 
 // Standard includes

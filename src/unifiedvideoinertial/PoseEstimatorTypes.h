@@ -26,24 +26,34 @@
 
 // Internal Includes
 #include "CameraParameters.h"
-#include "LedMeasurement.h"
+#include "unifiedvideoinertial/ConfigParams.h"
+#include "ModelTypes.h"
+#include "TrackedBodyTarget.h"
+#include "Types.h"
 
 // Library/third-party includes
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <FlexKalman/TimeValue.h>
-#include <opencv2/core/core.hpp>
 
 // Standard includes
-#include <memory>
+#include <vector>
 
 namespace osvr {
 namespace vbtracker {
-    struct ImageProcessingOutput {
-        util::time::TimeValue tv;
-        LedMeasurementVec ledMeasurements;
-        cv::Mat frame;
-        cv::Mat frameGray;
-        CameraParameters camParams;
+    struct EstimatorInOutParams {
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+        CameraParameters const &camParams;
+        BeaconStateVec &beacons;
+        std::vector<double> const &beaconMeasurementVariance;
+        std::vector<bool> const &beaconFixed;
+        Vec3Vector const &beaconEmissionDirection;
+        /// Time that the state is coming in at.
+        osvr::util::time::TimeValue const &startingTime;
+        BodyState &state;
+        BodyProcessModel &processModel;
+        std::vector<BeaconData> &beaconDebug;
+        Eigen::Vector3d targetToBody;
     };
-    using ImageOutputDataPtr = std::unique_ptr<ImageProcessingOutput>;
 } // namespace vbtracker
 } // namespace osvr

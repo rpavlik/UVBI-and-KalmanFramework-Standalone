@@ -25,10 +25,9 @@
 #pragma once
 
 // Internal Includes
-// - none
+#include "videotrackershared/UVBIAssert.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <FlexKalman/Angles.h>

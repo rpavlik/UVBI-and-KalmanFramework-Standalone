@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "BlobParams.h"
+#include "videotrackershared/BlobParams.h"
 
 // Library/third-party includes
 // - none

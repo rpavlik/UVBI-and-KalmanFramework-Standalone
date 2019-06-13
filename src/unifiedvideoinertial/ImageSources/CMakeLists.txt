@@ -1,15 +1,18 @@
 ###
 # Build a separate static library for image acquisition
 ###
+set(HEADER_LOCATION ${INCLUDE_SOURCE_DIR}/unifiedvideoinertial/ImageSources)
+set(API
+    "${HEADER_LOCATION}/ImageSource.h"
+    "${HEADER_LOCATION}/ImageSourceFactories.h")
 set(SOURCES
     CVImageSource.cpp
     # DK2ImageSource.cpp
     ImageSource.cpp
-    ImageSource.h
-    ImageSourceFactories.h
     FakeImageSource.cpp
     # Oculus_DK2.cpp
     # Oculus_DK2.h
+    ${API}
     )
 
 if(WIN32)
@@ -27,17 +30,12 @@ target_compile_features(uvbi-image-sources
     PUBLIC
     cxx_std_11)
 
-set_target_properties(uvbi-image-sources PROPERTIES
-    FOLDER "${PROJ_FOLDER}")
-
-#target_include_directories(uvbi-image-sources INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(uvbi-image-sources PUBLIC
     opencv_core
     opencv_highgui
     opencv_videoio
     opencv_imgproc
-    ${VIDEOTRACKER_EXTRA_LIBS}
     KalmanFramework)
 if(WIN32)
     target_link_libraries(uvbi-image-sources PUBLIC

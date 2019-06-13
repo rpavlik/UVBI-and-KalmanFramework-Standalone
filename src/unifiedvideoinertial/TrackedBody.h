@@ -27,7 +27,7 @@
 // Internal Includes
 #include "BodyIdTypes.h"
 #include "CannedIMUMeasurement.h"
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "ModelTypes.h"
 
 // Library/third-party includes

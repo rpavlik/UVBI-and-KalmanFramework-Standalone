@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "CameraParameters.h"
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "GenericBlobExtractor.h"
 #include "RoomCalibration.h"
 #include "TrackingSystem.h"

@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "BeaconSetupData.h"
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "HDKData.h"
 #include "RangeTransform.h"
 #include "TrackedBody.h"

@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "LED.h"
 #include "TrackingSystem_Impl.h"
 

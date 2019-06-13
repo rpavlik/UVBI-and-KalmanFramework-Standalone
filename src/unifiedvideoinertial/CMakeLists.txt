@@ -1,31 +1,32 @@
-set(VIDEOTRACKER_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../videobasedtracker")
-set(PROJ_FOLDER "OSVR Plugins/Unified Video-Inertial Tracker")
+
 # osvr_convert_json(org_osvr_unifiedvideoinertial_json
 #     org_osvr_unifiedvideoinertial.json
 #     "${CMAKE_CURRENT_BINARY_DIR}/org_osvr_unifiedvideoinertial_json.h")
-
-# Be able to find our generated header file, have shared files find us, and have us find shared files.
-include_directories("${CMAKE_CURRENT_BINARY_DIR}"
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${KALMANFRAMEWORK_VIDEOTRACKERSHARED_INCLUDE_DIR}")
 
 # Make sure we can link these upcoming static libraries into a shared lib
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_definitions(-DUVBI_USING_EDGE_HOLE_EXTRACTOR)
 
+
 add_subdirectory(ImageSources)
 
+set(HEADER_LOCATION ${INCLUDE_SOURCE_DIR}/unifiedvideoinertial)
 ###
 # Static library with core of the tracker
 ###
+
+set(API
+    "${HEADER_LOCATION}/BodyIdTypes.h"
+    "${HEADER_LOCATION}/ConfigParams.h"
+    "${HEADER_LOCATION}/TrackingSystem.h"
+)
 add_library(uvbi-core STATIC
     AngVelTools.h
     ApplyIMUToState.cpp
     ApplyIMUToState.h
     AssignMeasurementsToLeds.h
     Assumptions.h
-    BodyIdTypes.h
     BeaconIdTypes.h
     BeaconSetupData.cpp
     BeaconSetupData.h
@@ -33,7 +34,6 @@ add_library(uvbi-core STATIC
     CannedIMUMeasurement.h
     Clamp.h
     ConfigParams.cpp
-    ConfigParams.h
     CrossProductMatrix.h
     ForEachTracked.h
     HDKLedIdentifier.cpp
@@ -73,10 +73,8 @@ add_library(uvbi-core STATIC
     TrackingSystem_Impl.cpp
     TrackingSystem_Impl.h
     TrackingSystem.cpp
-    TrackingSystem.h
     Types.h
-    UsefulQuaternions.h
-    ${KALMANFRAMEWORK_VIDEOTRACKERSHARED_SOURCES_CORE})
+    UsefulQuaternions.h)
 target_compile_features(uvbi-core
     PUBLIC
     cxx_std_11)
@@ -89,34 +87,17 @@ target_link_libraries(uvbi-core
     opencv_calib3d
     opencv_highgui
     KalmanFramework
-    eigen-headers
     optional-lite
     variant-lite
+    $<BUILD_INTERFACE:eigen-headers>
     PRIVATE
     util-headers)
-target_include_directories(uvbi-core
-    PUBLIC
-    ${KALMANFRAMEWORK_VIDEOTRACKERSHARED_INCLUDE_DIR})
-set_target_properties(uvbi-core PROPERTIES
-    FOLDER "${PROJ_FOLDER}")
+# target_include_directories(uvbi-core
+#     PUBLIC
+#     ${KALMANFRAMEWORK_VIDEOTRACKERSHARED_INCLUDE_DIR})
 target_compile_definitions(uvbi-core PRIVATE UVBI_CORE)
 
-###
-# Convenience tool to view the tracker camera using the same pipeline as the tracker plugin.
-###
-add_executable(uvbi-view-camera ViewTrackingCamera.cpp)
-target_link_libraries(uvbi-view-camera PRIVATE uvbi-image-sources opencv_imgcodecs)
-set_target_properties(uvbi-view-camera PROPERTIES
-    FOLDER "${PROJ_FOLDER}")
 
-###
-# Utility to measure capture latency of the IR camera, USB stack, etc.
-# Disabled due to lack of VRPN, used for serial communication
-###
-# add_executable(uvbi-measure-camera-latency MeasureTrackingCameraLatency.cpp)
-# target_link_libraries(uvbi-measure-camera-latency PRIVATE uvbi-image-sources vendored-vrpn)
-# set_target_properties(uvbi-measure-camera-latency PROPERTIES
-#     FOLDER "${PROJ_FOLDER}")
 
 if(BUILD_TESTING)
     ###
@@ -133,18 +114,6 @@ if(BUILD_TESTING)
         FOLDER "${PROJ_FOLDER}")
     add_test(NAME TestIMU COMMAND uvbi-test-imu)
 endif()
-
-# "object library" for the HDK data files.
-add_library(uvbi-hdkdata OBJECT ${KALMANFRAMEWORK_VIDEOTRACKERSHARED_SOURCES_HDKDATA})
-
-target_compile_features(uvbi-hdkdata
-    PUBLIC
-    cxx_std_11)
-target_include_directories(uvbi-hdkdata
-    PUBLIC
-    ${OpenCV_INCLUDE_DIRS})
-set_target_properties(uvbi-hdkdata PROPERTIES
-    FOLDER "${PROJ_FOLDER}")
 
 # Main plugin, disabled because you can't build an OSVR plugin without OSVR
 # osvr_add_plugin(NAME org_osvr_unifiedvideoinertial
@@ -188,17 +157,16 @@ add_library(uvbi_plugin_parts SHARED
     ThreadsafeBodyReporting.cpp
     ThreadsafeBodyReporting.h
     TrackerThread.cpp
-    TrackerThread.h
-    $<TARGET_OBJECTS:uvbi-hdkdata>
-    ${KALMANFRAMEWORK_VIDEOTRACKERSHARED_SOURCES_IO})
+    TrackerThread.h)
 
 target_link_libraries(uvbi_plugin_parts
+    PUBLIC
     uvbi-core
     uvbi-image-sources
     JsonCpp::JsonCpp
+    PRIVATE
     util-headers
-    folly-headers)
-
-add_subdirectory(ParameterFinder)
-add_subdirectory(OfflineProcessing)
-
+    folly-headers
+    videotrackershared_io
+    videotrackershared_hdkdata
+    )

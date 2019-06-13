@@ -9,4 +9,4 @@ add_subdirectory(FlexKalman)
 
 add_subdirectory(videotrackershared)
 
-# add_subdirectory(unifiedvideoinertialtracker)
+add_subdirectory(unifiedvideoinertial)

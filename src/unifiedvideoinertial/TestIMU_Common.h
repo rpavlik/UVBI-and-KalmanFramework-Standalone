@@ -28,7 +28,7 @@
 // Internal Includes
 #include "TestIMU.h"
 
-#include "ConfigParams.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "IMUStateMeasurements.h"
 
 // Library/third-party includes

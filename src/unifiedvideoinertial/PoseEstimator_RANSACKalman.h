@@ -25,35 +25,34 @@
 #pragma once
 
 // Internal Includes
-#include "CameraParameters.h"
-#include "ConfigParams.h"
-#include "ModelTypes.h"
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/ConfigParams.h"
+#include "PoseEstimatorTypes.h"
+#include "PoseEstimator_RANSAC.h"
 #include "Types.h"
 
 // Library/third-party includes
-#include <Eigen/Core>
-#include <Eigen/Geometry>
-#include <FlexKalman/TimeValue.h>
+// - none
 
 // Standard includes
-#include <vector>
+#include <cstddef>
 
 namespace osvr {
 namespace vbtracker {
-    struct EstimatorInOutParams {
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-        CameraParameters const &camParams;
-        BeaconStateVec &beacons;
-        std::vector<double> const &beaconMeasurementVariance;
-        std::vector<bool> const &beaconFixed;
-        Vec3Vector const &beaconEmissionDirection;
-        /// Time that the state is coming in at.
-        osvr::util::time::TimeValue const &startingTime;
-        BodyState &state;
-        BodyProcessModel &processModel;
-        std::vector<BeaconData> &beaconDebug;
-        Eigen::Vector3d targetToBody;
+    class RANSACKalmanPoseEstimator {
+      public:
+        RANSACKalmanPoseEstimator(double positionVarianceScale = 1.e-1,
+                                  double orientationVariance = 1.e0);
+        /// Perform RANSAC-based pose estimation but filter results in via an
+        /// EKF to the body state.
+        ///
+        /// @return true if a pose was estimated.
+        bool operator()(EstimatorInOutParams const &p, LedPtrList const &leds,
+                        osvr::util::time::TimeValue const &frameTime);
+
+      private:
+        RANSACPoseEstimator m_ransac;
+        const double m_positionVarianceScale;
+        const double m_orientationVariance;
     };
 } // namespace vbtracker
 } // namespace osvr

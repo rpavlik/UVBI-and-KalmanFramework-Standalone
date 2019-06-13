@@ -28,7 +28,7 @@
 #include "CameraParameters.h"
 #include "IMUMessage.h"
 #include "ThreadsafeBodyReporting.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 
 #include "ImageSources/ImageSource.h"
 

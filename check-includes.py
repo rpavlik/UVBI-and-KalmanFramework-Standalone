@@ -44,6 +44,9 @@ class FileMigration:
         self.include_re = re.compile(
             r'^ *# *include *(?P<quoted_name>(?P<open>["<])(?P<name>[^">]*)[">])')
 
+    def file_known(self, resolved_path):
+        return self.graph.nodes[str(resolved_path)].get('known', False)
+
     def process_file(self, fn, public=False):
         if not fn.is_file():
             return
@@ -53,7 +56,7 @@ class FileMigration:
         G.add_node(current_file_node,
                    path=str(fn),
                    public=public,
-                   system_header=False)
+                   known=True)
         with open(str(fn), 'r', encoding='utf') as fp:
             for line in fp:
                 line = line.rstrip()
@@ -115,6 +118,7 @@ public_headers = set((f for f in G if G.node[f].get('public')))
 # print(public_headers)
 print(len(public_headers))
 
+
 def find_transitive_included(headers):
     ret = set(headers)
     for h in headers:
@@ -131,9 +135,11 @@ must_move = set(x for x in transitive if x not in public_headers)
 # must_move = (h for h in transitive if not G.node[h].get('public'))
 print(list(must_move))
 
-# for includer, included, path_used in G.edges(data='path'):
-#     includer_attrs = G.nodes[includer]
-#     included_attrs = G.nodes[included]
+for includer, included, path_used in G.edges(data='include_path'):
+    if not migration.file_known(included):
+        continue
+    includer_attrs = G.nodes[includer]
+    included_attrs = G.nodes[included]
 #     if included_attrs.get('system_header'):
 #         continue
 #     if 'path' not in included_attrs:
@@ -141,7 +147,12 @@ print(list(must_move))
 #               G.nodes[includer]['path'], "tries to include", path_used,
 #               "but not resolved")
 
-#     includer_dir = Path(includer_attrs['path']).parent
+    includer_dir = Path(includer_attrs['path']).parent
+    _, resolved = find_in_dir_list(path_used, (includer_dir, INC))
+    if not resolved:
+        print("sed -i {} 's/{}/{}/'".format(includer, path_used, Path(included).relative_to(INC)))
+        # print(includer, "includes", path_used,
+        #       "but should include", Path(included).relative_to(INC))
 #     found = [(d/path_used).is_file() for d in (includer_dir, INC)]
 #     local_include = includer_dir / path_used
 #     common_include = INC / path_used

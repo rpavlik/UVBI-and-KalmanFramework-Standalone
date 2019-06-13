@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "ProjectPoint.h"
+#include "videotrackershared/ProjectPoint.h"
 #include <FlexKalman/AugmentedState.h>
 #include <FlexKalman/FlexibleKalmanBase.h>
 #include <FlexKalman/PoseState.h>
