@@ -31,7 +31,7 @@
 #include "StateHistory.h"
 #include "TrackedBodyIMU.h"
 #include "TrackedBodyTarget.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 
 // Library/third-party includes
 #include <FlexKalman/FlexibleKalmanFilter.h>

@@ -23,17 +23,17 @@
 // limitations under the License.
 
 // Internal Includes
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 #include "ForEachTracked.h"
 #include "RoomCalibration.h"
-#include "SBDBlobExtractor.h"
 #include "TrackedBody.h"
 #include "TrackedBodyTarget.h"
 #include "TrackingSystem_Impl.h"
-#include "UndistortMeasurements.h"
+#include "videotrackershared/SBDBlobExtractor.h"
+#include "videotrackershared/UndistortMeasurements.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 
 #include <util/Stride.h>
 

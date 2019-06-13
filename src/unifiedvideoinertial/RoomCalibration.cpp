@@ -33,7 +33,7 @@
 #include "TrackedBodyIMU.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <FlexKalman/EigenExtras.h>
 #include <FlexKalman/ExtractYaw.h>
 

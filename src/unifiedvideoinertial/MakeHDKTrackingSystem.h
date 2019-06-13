@@ -26,14 +26,14 @@
 
 // Internal Includes
 #include "BeaconSetupData.h"
-#include "unifiedvideoinertial/ConfigParams.h"
-#include "HDKData.h"
 #include "RangeTransform.h"
 #include "TrackedBody.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/ConfigParams.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
+#include "videotrackershared/HDKData.h"
 
-#include "LoadCalibration.h"
-#include "cvToEigen.h"
+#include "videotrackershared/LoadCalibration.h"
+#include "videotrackershared/cvToEigen.h"
 
 // Library/third-party includes
 // - none

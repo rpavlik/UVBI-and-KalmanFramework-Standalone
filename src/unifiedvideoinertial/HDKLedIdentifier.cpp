@@ -24,8 +24,8 @@
 
 // Internal Includes
 #include "HDKLedIdentifier.h"
-#include "IdentifierHelpers.h"
 #include "LED.h"
+#include "videotrackershared/IdentifierHelpers.h"
 
 // Library/third-party includes
 // - none

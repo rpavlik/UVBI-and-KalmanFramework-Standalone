@@ -33,12 +33,12 @@
 #include "PoseEstimator_RANSACKalman.h"
 #include "PoseEstimator_SCAATKalman.h"
 #include "TrackedBody.h"
-#include "cvToEigen.h"
+#include "videotrackershared/cvToEigen.h"
 #include <FlexKalman/CSV.h>
 #include <FlexKalman/CSVCellGroup.h>
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <util/Stride.h>
 
 // Standard includes

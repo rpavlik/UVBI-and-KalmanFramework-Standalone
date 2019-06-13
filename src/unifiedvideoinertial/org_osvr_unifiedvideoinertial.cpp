@@ -25,18 +25,18 @@
 // Internal Includes
 #include "AdditionalReports.h"
 #include "ConfigurationParser.h"
-#include "HDKData.h"
-#include "MakeHDKTrackingSystem.h"
+#include "MakeHDKunifiedvideoinertial/TrackingSystem.h"
 #include "TrackerThread.h"
+#include "videotrackershared/HDKData.h"
 
 // ImageSources mini-library
 #include "ImageSources/ImageSource.h"
 #include "ImageSources/ImageSourceFactories.h"
 
 // uvbi-core mini-library
-#include "CameraParameters.h"
 #include "ThreadsafeBodyReporting.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
+#include "videotrackershared/CameraParameters.h"
 
 #include <osvr/AnalysisPluginKit/AnalysisPluginKitC.h>
 #include <osvr/ClientKit/InterfaceC.h>
@@ -59,7 +59,7 @@
 #include <opencv2/highgui/highgui.hpp> // for image capture
 #include <opencv2/imgproc/imgproc.hpp> // for image scaling
 
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <nonstd/variant.hpp>
 
 #include <util/Stride.h>

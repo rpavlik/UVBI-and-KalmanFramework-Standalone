@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
-#include "GetOptionalParameter.h"
-#include "OptionalStream.h"
-#include "ParseBlobParams.h"
 #include "Types.h"
+#include "videotrackershared/GetOptionalParameter.h"
+#include "videotrackershared/OptionalStream.h"
+#include "videotrackershared/ParseBlobParams.h"
 
 // Library/third-party includes
 #include <json/value.h>

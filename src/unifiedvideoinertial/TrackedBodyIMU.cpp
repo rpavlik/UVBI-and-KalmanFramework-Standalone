@@ -26,11 +26,11 @@
 #include "TrackedBodyIMU.h"
 #include "AngVelTools.h"
 #include "TrackedBody.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 #include <FlexKalman/EigenExtras.h>
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 
 // Standard includes
 #include <cmath>

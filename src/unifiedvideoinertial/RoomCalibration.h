@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "BodyIdTypes.h"
+#include "unifiedvideoinertial/BodyIdTypes.h"
 
 // Library/third-party includes
 #include <Eigen/Core>

@@ -27,10 +27,10 @@
 // Internal Includes
 #include "BeaconIdTypes.h"
 #include "LED.h"
-#include "LedMeasurement.h"
+#include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <opencv2/core/core.hpp>
 
 // Standard includes

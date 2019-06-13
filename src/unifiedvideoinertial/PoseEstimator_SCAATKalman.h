@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
-#include "unifiedvideoinertial/ConfigParams.h"
 #include "ModelTypes.h"
 #include "PoseEstimatorTypes.h"
 #include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 
 // Library/third-party includes
 // - none

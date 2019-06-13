@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 
 // Library/third-party includes
 // - none

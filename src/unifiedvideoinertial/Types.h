@@ -26,8 +26,8 @@
 
 // Internal Includes
 #include "Assumptions.h"
-#include "BasicTypes.h"
 #include "unifiedvideoinertial/ConfigParams.h"
+#include "videotrackershared/BasicTypes.h"
 
 // Library/third-party includes
 #include <opencv2/features2d/features2d.hpp>

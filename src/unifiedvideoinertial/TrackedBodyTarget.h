@@ -27,13 +27,13 @@
 // Internal Includes
 #include "BeaconIdTypes.h"
 #include "BeaconSetupData.h"
-#include "BodyIdTypes.h"
-#include "LedMeasurement.h"
 #include "ModelTypes.h"
 #include "Types.h"
+#include "unifiedvideoinertial/BodyIdTypes.h"
+#include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <FlexKalman/PureVectorState.h>
 #include <FlexKalman/TimeValue.h>
 

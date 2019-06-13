@@ -24,11 +24,11 @@
 
 // Internal Includes
 #include "PoseEstimator_RANSAC.h"
-#include "CameraParameters.h"
 #include "LED.h"
 #include "PinholeCameraFlip.h"
 #include "UsefulQuaternions.h"
-#include "cvToEigen.h"
+#include "videotrackershared/CameraParameters.h"
+#include "videotrackershared/cvToEigen.h"
 
 // Library/third-party includes
 #include <opencv2/calib3d/calib3d.hpp>

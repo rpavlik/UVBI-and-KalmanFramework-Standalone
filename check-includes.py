@@ -18,6 +18,7 @@ SRC = ROOT / 'src'
 
 ALL_DIRS = (
     INC,
+    SRC,
     INC/'FlexKalman',
     INC/'videotrackershared',
     INC/'videotrackershared'/'ImageSources',
@@ -66,6 +67,10 @@ class FileMigration:
 
                 include_name = match.group('name')
                 path, resolved = find_in_dir_list(include_name, ALL_DIRS)
+                if not resolved:
+                    path, resolved = find_in_dir_list(Path(include_name).name, ALL_DIRS)
+                    if resolved:
+                        print("Had to strip path from", include_name)
                 if not resolved:
                     continue
                 angle_include = (match.group('open') == "<")

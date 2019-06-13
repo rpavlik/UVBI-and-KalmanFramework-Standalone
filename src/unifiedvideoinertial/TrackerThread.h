@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
-#include "CameraParameters.h"
 #include "IMUMessage.h"
 #include "ThreadsafeBodyReporting.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
+#include "videotrackershared/CameraParameters.h"
 
 #include "ImageSources/ImageSource.h"
 

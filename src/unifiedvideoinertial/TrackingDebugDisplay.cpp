@@ -24,12 +24,12 @@
 
 // Internal Includes
 #include "TrackingDebugDisplay.h"
-#include "CameraParameters.h"
-#include "SBDBlobExtractor.h"
 #include "TrackedBody.h"
 #include "TrackedBodyTarget.h"
-#include "TrackingSystem.h"
-#include "cvToEigen.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
+#include "videotrackershared/CameraParameters.h"
+#include "videotrackershared/SBDBlobExtractor.h"
+#include "videotrackershared/cvToEigen.h"
 
 // Library/third-party includes
 #include <opencv2/highgui/highgui.hpp> // for GUI window

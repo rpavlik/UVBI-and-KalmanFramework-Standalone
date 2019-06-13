@@ -47,7 +47,7 @@ inline void dumpKalmanDebugOuput(const char name[], const char expr[],
 #include "PinholeCameraFlip.h"
 #include "PoseEstimator_SCAATKalman.h"
 #include "UsefulQuaternions.h"
-#include "cvToEigen.h"
+#include "videotrackershared/cvToEigen.h"
 
 // Library/third-party includes
 #include <FlexKalman/AugmentedProcessModel.h>

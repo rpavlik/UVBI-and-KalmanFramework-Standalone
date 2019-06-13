@@ -25,7 +25,7 @@
 // Internal Includes
 #include "ImageProcessingThread.h"
 #include "TrackerThread.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 
 #include "ImageSources/ImageSource.h"
 

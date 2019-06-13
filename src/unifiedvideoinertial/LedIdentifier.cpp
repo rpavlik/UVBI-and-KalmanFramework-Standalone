@@ -26,7 +26,7 @@
 #include "LedIdentifier.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 
 // Standard includes
 #include <algorithm>

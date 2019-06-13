@@ -25,13 +25,13 @@
 #pragma once
 
 // Internal Includes
-#include "BodyIdTypes.h"
 #include "CannedIMUMeasurement.h"
-#include "unifiedvideoinertial/ConfigParams.h"
 #include "ModelTypes.h"
+#include "unifiedvideoinertial/BodyIdTypes.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 
 // Library/third-party includes
-#include "UVBIAssert.h"
+#include "videotrackershared/UVBIAssert.h"
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <FlexKalman/TimeValue.h>

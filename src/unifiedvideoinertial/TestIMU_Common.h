@@ -28,8 +28,8 @@
 // Internal Includes
 #include "TestIMU.h"
 
-#include "unifiedvideoinertial/ConfigParams.h"
 #include "IMUStateMeasurements.h"
+#include "unifiedvideoinertial/ConfigParams.h"
 
 // Library/third-party includes
 #include <FlexKalman/Angles.h>

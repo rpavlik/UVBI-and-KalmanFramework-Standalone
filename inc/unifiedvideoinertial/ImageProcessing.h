@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "videotrackershared/CameraParameters.h"
-#include "LedMeasurement.h"
+#include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes
 #include <FlexKalman/TimeValue.h>

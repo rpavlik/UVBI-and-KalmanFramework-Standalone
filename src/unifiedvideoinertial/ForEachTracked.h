@@ -27,7 +27,7 @@
 // Internal Includes
 #include "TrackedBody.h"
 #include "TrackedBodyTarget.h"
-#include "TrackingSystem.h"
+#include "unifiedvideoinertial/TrackingSystem.h"
 
 // Library/third-party includes
 // - none
