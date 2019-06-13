@@ -70,9 +70,8 @@ endif()
 add_subdirectory(vendor)
 
 # Core library
-add_subdirectory(src/KalmanFramework)
+add_subdirectory(src)
 
-add_subdirectory(plugins)
 if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()

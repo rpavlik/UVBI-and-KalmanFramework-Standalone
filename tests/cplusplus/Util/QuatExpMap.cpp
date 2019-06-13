@@ -25,7 +25,7 @@
 
 // Internal Includes
 #include "CatchEigen.h"
-#include <KalmanFramework/EigenQuatExponentialMap.h>
+#include <FlexKalman/EigenQuatExponentialMap.h>
 
 // Library/third-party includes
 #ifdef HAVE_QUATLIB

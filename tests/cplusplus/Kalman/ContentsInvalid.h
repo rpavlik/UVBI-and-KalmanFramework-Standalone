@@ -25,8 +25,8 @@
 #pragma once
 
 // Internal Includes
-#include <KalmanFramework/FlexibleKalmanBase.h>
-#include <KalmanFramework/PoseState.h>
+#include <FlexKalman/FlexibleKalmanBase.h>
+#include <FlexKalman/PoseState.h>
 
 // Library/third-party includes
 // - none

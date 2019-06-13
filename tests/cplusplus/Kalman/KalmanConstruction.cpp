@@ -24,8 +24,8 @@
 // limitations under the License.
 
 // Internal Includes
-#include <KalmanFramework/FlexibleKalmanFilter.h>
-#include <KalmanFramework/PoseConstantVelocity.h>
+#include <FlexKalman/FlexibleKalmanFilter.h>
+#include <FlexKalman/PoseConstantVelocity.h>
 
 // Library/third-party includes
 #include <catch2/catch.hpp>
