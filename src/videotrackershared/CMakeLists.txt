@@ -39,10 +39,12 @@ target_include_directories(videotrackershared_core
     $<BUILD_INTERFACE:${INCLUDE_SOURCE_DIR}>
     $<BUILD_INTERFACE:${HEADER_LOCATION}>
     $<BUILD_INTERFACE:${OpenCV_INCLUDE_DIRS}>
+    $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIRS}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_link_libraries(videotrackershared_core PUBLIC
     opencv_core
-    opencv_imgproc)
+    opencv_imgproc
+    opencv_features2d)
 
 set(IO_API
     "${HEADER_LOCATION}/GetOptionalParameter.h"
@@ -65,16 +67,3 @@ add_library(videotrackershared_hdkdata STATIC
     HDKData.cpp
     ${HDKDATA_API})
 target_link_libraries(videotrackershared_hdkdata PUBLIC videotrackershared_core)
-
-if(BUILD_ADVANCED_DEV_TOOLS)
-    add_executable(blob_extraction_demo
-        BlobExtractionDemo.cpp)
-    target_link_libraries(blob_extraction_demo
-        PUBLIC
-        ${VIDEOTRACKER_EXTRA_LIBS}
-        videotrackershared_io
-        JsonCpp::JsonCpp)
-    target_compile_definitions(blob_extraction_demo
-        PRIVATE
-        UVBI_USING_EDGE_HOLE_EXTRACTOR)
-endif()
