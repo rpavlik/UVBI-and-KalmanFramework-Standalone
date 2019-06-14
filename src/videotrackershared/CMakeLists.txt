@@ -21,7 +21,6 @@ set(CORE_API
     "${HEADER_LOCATION}/IdentifierHelpers.h"
     "${HEADER_LOCATION}/LedMeasurement.h"
     "${HEADER_LOCATION}/ProjectPoint.h"
-    "${HEADER_LOCATION}/RealtimeLaplacian.h"
     "${HEADER_LOCATION}/SBDBlobExtractor.h"
     "${HEADER_LOCATION}/UndistortMeasurements.h"
 )
@@ -30,6 +29,7 @@ add_library(videotrackershared_core SHARED
     EdgeHoleBasedLedExtractor.cpp
     EdgeHoleBlobExtractor.cpp
     GenericBlobExtractor.cpp
+    RealtimeLaplacian.h
     SBDBlobExtractor.cpp
     ${CORE_API})
 

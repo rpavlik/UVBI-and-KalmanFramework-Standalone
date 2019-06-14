@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
-#include "CannedIMUMeasurement.h"
-#include "ModelTypes.h"
 #include "BodyIdTypes.h"
+#include "CannedIMUMeasurement.h"
 #include "ConfigParams.h"
+#include "ModelTypes.h"
 
 // Library/third-party includes
 #include "videotrackershared/UVBIAssert.h"

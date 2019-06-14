@@ -27,9 +27,9 @@
 // Internal Includes
 #include "UtilityFunctions.h"
 
+#include "unifiedvideoinertial/ConfigParams.h"
 #include "unifiedvideoinertial/MakeHDKTrackingSystem.h"
 #include "unifiedvideoinertial/TrackedBodyTarget.h"
-#include "unifiedvideoinertial/ConfigParams.h"
 
 // Library/third-party includes
 #include <Eigen/Core>

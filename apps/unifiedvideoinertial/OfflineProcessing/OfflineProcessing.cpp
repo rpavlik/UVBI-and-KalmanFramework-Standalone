@@ -25,15 +25,15 @@
 #define KALMANFRAMEWORK_HAVE_BOOST
 
 // Internal Includes
+#include "FlexKalman/CSVCellGroup.h"
+#include "GenerateBlobDebugImage.h"
+#include "QuatToEuler.h"
 #include "unifiedvideoinertial/ConfigParams.h"
 #include "unifiedvideoinertial/ConfigurationParser.h"
 #include "unifiedvideoinertial/MakeHDKTrackingSystem.h"
 #include "unifiedvideoinertial/TrackedBodyTarget.h"
-#include "FlexKalman/CSVCellGroup.h"
 #include "videotrackershared/CameraParameters.h"
 #include "videotrackershared/EdgeHoleBasedLedExtractor.h"
-#include "GenerateBlobDebugImage.h"
-#include "QuatToEuler.h"
 #include "videotrackershared/UndistortMeasurements.h"
 #include "videotrackershared/cvUtils.h"
 #include <FlexKalman/CSV.h>

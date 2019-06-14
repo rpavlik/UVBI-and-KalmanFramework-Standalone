@@ -27,8 +27,8 @@
 // Internal Includes
 #include "AngVelTools.h"
 #include "CrossProductMatrix.h"
-#include "unifiedvideoinertial/ModelTypes.h"
 #include "SpaceTransformations.h"
+#include "unifiedvideoinertial/ModelTypes.h"
 
 // Library/third-party includes
 #include <FlexKalman/AbsoluteOrientationMeasurement.h>

@@ -26,8 +26,8 @@
 
 // Internal Includes
 #include "IMUMessage.h"
-#include "unifiedvideoinertial/TrackedBody.h"
 #include "TrackedBodyIMU.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 
 // Library/third-party includes
 #include <FlexKalman/EigenInterop.h>

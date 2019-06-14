@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "unifiedvideoinertial/BeaconIdunifiedvideoinertial/Types.h"
+#include "unifiedvideoinertial/BeaconIdTypes.h"
 #include "unifiedvideoinertial/Types.h"
 
 // Library/third-party includes

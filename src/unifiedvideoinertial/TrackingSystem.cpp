@@ -26,9 +26,9 @@
 #include "unifiedvideoinertial/TrackingSystem.h"
 #include "ForEachTracked.h"
 #include "RoomCalibration.h"
+#include "TrackingSystem_Impl.h"
 #include "unifiedvideoinertial/TrackedBody.h"
 #include "unifiedvideoinertial/TrackedBodyTarget.h"
-#include "TrackingSystem_Impl.h"
 #include "videotrackershared/SBDBlobExtractor.h"
 #include "videotrackershared/UndistortMeasurements.h"
 

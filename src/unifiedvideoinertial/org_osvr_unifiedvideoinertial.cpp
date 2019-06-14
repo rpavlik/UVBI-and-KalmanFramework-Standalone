@@ -24,9 +24,9 @@
 
 // Internal Includes
 #include "AdditionalReports.h"
-#include "unifiedvideoinertial/ConfigurationParser.h"
 #include "MakeHDKunifiedvideoinertial/TrackingSystem.h"
 #include "TrackerThread.h"
+#include "unifiedvideoinertial/ConfigurationParser.h"
 #include "videotrackershared/HDKData.h"
 
 // ImageSources mini-library

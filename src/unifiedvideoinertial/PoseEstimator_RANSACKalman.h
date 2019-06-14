@@ -25,10 +25,9 @@
 #pragma once
 
 // Internal Includes
-#include "PoseEstimatorunifiedvideoinertial/Types.h"
 #include "PoseEstimator_RANSAC.h"
-#include "unifiedvideoinertial/Types.h"
 #include "unifiedvideoinertial/ConfigParams.h"
+#include "unifiedvideoinertial/Types.h"
 
 // Library/third-party includes
 // - none

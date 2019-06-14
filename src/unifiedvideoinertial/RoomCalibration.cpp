@@ -28,9 +28,9 @@
 
 // Internal Includes
 #include "RoomCalibration.h"
-#include "unifiedvideoinertial/Assumptions.h"
 #include "ForEachTracked.h"
 #include "TrackedBodyIMU.h"
+#include "unifiedvideoinertial/Assumptions.h"
 
 // Library/third-party includes
 #include "videotrackershared/UVBIAssert.h"

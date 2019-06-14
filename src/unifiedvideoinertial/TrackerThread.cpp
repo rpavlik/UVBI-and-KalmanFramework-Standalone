@@ -28,8 +28,8 @@
 #include "ImageProcessingThread.h"
 #include "ProcessIMUMessage.h"
 #include "SpaceTransformations.h"
-#include "unifiedvideoinertial/TrackedBody.h"
 #include "TrackedBodyIMU.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "unifiedvideoinertial/TrackedBodyTarget.h"
 
 // Library/third-party includes

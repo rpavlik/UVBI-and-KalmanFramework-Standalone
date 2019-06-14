@@ -26,10 +26,10 @@
 #include "unifiedvideoinertial/TrackedBody.h"
 #include "ApplyIMUToState.h"
 #include "BodyTargetInterface.h"
-#include "unifiedvideoinertial/CannedIMUMeasurement.h"
 #include "HistoryContainer.h"
 #include "StateHistory.h"
 #include "TrackedBodyIMU.h"
+#include "unifiedvideoinertial/CannedIMUMeasurement.h"
 #include "unifiedvideoinertial/TrackedBodyTarget.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 

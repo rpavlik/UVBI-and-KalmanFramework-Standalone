@@ -17,22 +17,28 @@ set(HEADER_LOCATION ${INCLUDE_SOURCE_DIR}/unifiedvideoinertial)
 ###
 
 set(API
+    "${HEADER_LOCATION}/Assumptions.h"
+    "${HEADER_LOCATION}/BeaconIdTypes.h"
+    "${HEADER_LOCATION}/BeaconSetupData.h"
     "${HEADER_LOCATION}/BodyIdTypes.h"
+    "${HEADER_LOCATION}/CannedIMUMeasurement.h"
     "${HEADER_LOCATION}/ConfigParams.h"
     "${HEADER_LOCATION}/ImageProcessing.h"
+    "${HEADER_LOCATION}/ModelTypes.h"
+    "${HEADER_LOCATION}/RangeTransform.h"
+    "${HEADER_LOCATION}/TrackedBody.h"
+    "${HEADER_LOCATION}/TrackedBodyTarget.h"
     "${HEADER_LOCATION}/TrackingSystem.h"
+    "${HEADER_LOCATION}/Types.h"
 )
+
 add_library(uvbi-core STATIC
     AngVelTools.h
     ApplyIMUToState.cpp
     ApplyIMUToState.h
     AssignMeasurementsToLeds.h
-    Assumptions.h
-    BeaconIdTypes.h
     BeaconSetupData.cpp
-    BeaconSetupData.h
     BodyTargetInterface.h
-    CannedIMUMeasurement.h
     Clamp.h
     ConfigParams.cpp
     CrossProductMatrix.h
@@ -48,7 +54,6 @@ add_library(uvbi-core STATIC
     LED.h
     LedIdentifier.cpp
     LedIdentifier.h
-    ModelTypes.h
     PinholeCameraFlip.h
     PoseEstimator_RANSAC.cpp
     PoseEstimator_RANSAC.h
@@ -57,23 +62,19 @@ add_library(uvbi-core STATIC
     PoseEstimator_SCAATKalman.cpp
     PoseEstimator_SCAATKalman.h
     PoseEstimatorTypes.h
-    RangeTransform.h
     RoomCalibration.cpp
     RoomCalibration.h
     SpaceTransformations.h
     StateHistory.h
     TrackedBody.cpp
-    TrackedBody.h
     TrackedBodyIMU.cpp
     TrackedBodyIMU.h
     TrackedBodyTarget.cpp
-    TrackedBodyTarget.h
     TrackingDebugDisplay.cpp
     TrackingDebugDisplay.h
     TrackingSystem_Impl.cpp
     TrackingSystem_Impl.h
     TrackingSystem.cpp
-    Types.h
     UsefulQuaternions.h)
 target_compile_features(uvbi-core
     PUBLIC
@@ -148,10 +149,11 @@ endif()
 # These are the non-OSVR-dependent files from the plugin:
 # everything except the org_osvr_unifiedvideoinertial.cpp
 # and the JSON literal
+set(API
+    "${HEADER_LOCATION}/ConfigurationParser.h"
+    "${HEADER_LOCATION}/MakeHDKTrackingSystem.h")
 add_library(uvbi_plugin_parts SHARED
     AdditionalReports.h
-    ConfigurationParser.h
-    MakeHDKTrackingSystem.h
     ImageProcessingThread.cpp
     ImageProcessingThread.h
     IMUMessage.h
@@ -159,7 +161,8 @@ add_library(uvbi_plugin_parts SHARED
     ThreadsafeBodyReporting.cpp
     ThreadsafeBodyReporting.h
     TrackerThread.cpp
-    TrackerThread.h)
+    TrackerThread.h
+    ${API})
 
 target_link_libraries(uvbi_plugin_parts
     PUBLIC

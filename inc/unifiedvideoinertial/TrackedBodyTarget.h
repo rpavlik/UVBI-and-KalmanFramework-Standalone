@@ -27,9 +27,9 @@
 // Internal Includes
 #include "BeaconIdTypes.h"
 #include "BeaconSetupData.h"
+#include "BodyIdTypes.h"
 #include "ModelTypes.h"
 #include "Types.h"
-#include "BodyIdTypes.h"
 #include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes

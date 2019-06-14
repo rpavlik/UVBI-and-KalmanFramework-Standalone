@@ -26,9 +26,9 @@
 
 // Internal Includes
 #include "BeaconSetupData.h"
+#include "ConfigParams.h"
 #include "RangeTransform.h"
 #include "TrackedBody.h"
-#include "ConfigParams.h"
 #include "TrackingSystem.h"
 #include "videotrackershared/HDKData.h"
 

@@ -220,9 +220,9 @@ class UVBIFileMigration(FileMigrationBase):
             return str(fn)
 
     def modify_include(self, fn, old_include, new_include):
-        pattern = 's:{}:{}:'.format(
+        pattern = 's:"{}":"{}":'.format(
             # Escape periods
-            old_include.replace(".", r"\."),
+            old_include.replace(".", r"[.]"),
             new_include)
         cmd = ['sed', '-i', pattern, str(fn)]
         print("Fixing include in", self.shorten(fn),
