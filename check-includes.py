@@ -87,6 +87,13 @@ class FileMigrationBase:
             fn = new_fn
         return str(fn)
 
+    def get_transitive_includers(self, fn):
+        """Get a list of all files that (transitively) include fn."""
+        fn = self.make_fn_absolute(fn)
+        if fn not in self.graph:
+            raise RuntimeError(str(fn) + " not in graph")
+        return list(nx.dfs_preorder_nodes(nx.reversed(self.graph), fn))
+
     def get_transitive_includes(self, fn):
         """Get a generator of all files transitively included by fn."""
         fn = self.make_fn_absolute(fn)
@@ -103,33 +110,37 @@ class FileMigrationBase:
             ret = ret.union(includes)
         return ret
 
-    def get_include_search_path_for(self, includer):
-        includer = Path(includer)
-        assert(includer.is_absolute())
-        includer_dir = includer.parent
-        search_path = [includer_dir]
+    def get_include_search_path_for(self, includer, angle_include=False):
+        search_path = []
+        if not angle_include:
+            includer = Path(includer)
+            assert(includer.is_absolute())
+            includer_dir = includer.parent
+            search_path = [includer_dir]
         search_path.extend(self.include_dirs)
         return search_path
 
-    def resolve_include(self, includer, path_included):
-        search_path = self.get_include_search_path_for(includer)
+    def resolve_include(self, includer, path_included, angle_include=False):
+        search_path = self.get_include_search_path_for(
+            includer, angle_include=angle_include)
         full_include, resolved = self.find_in_dir_list(
             path_included, search_path)
         if not resolved:
             return None
         return full_include
 
-    def make_most_concise_include(self, includer, resolved_include):
+    def make_most_concise_include(self, includer, resolved_include, angle_include=False):
         resolved_include = Path(resolved_include)
         assert(resolved_include.is_absolute())
-        search_path = self.get_include_search_path_for(includer)
+        search_path = self.get_include_search_path_for(
+            includer, angle_include=angle_include)
         for d in search_path:
             try:
                 relative = resolved_include.relative_to(d)
                 return str(relative)
             except ValueError:
                 continue
-        raise RuntimeError("Could not find this file in the search path!")
+        return None
 
 
 class UVBIFileMigration(FileMigrationBase):
@@ -194,44 +205,63 @@ class UVBIFileMigration(FileMigrationBase):
         subprocess.check_call(cmd)
 
     def fix_includes(self):
+        """Correct and simplify include lines, and find files that should be public headers."""
         G = self.graph
         possible_public = set()
-        changes = False
+        include_fixes = []
         for includer, included, path_used in G.edges(data='include_path'):
             if not self.file_known(included):
                 # Skip system/external dep includes
                 continue
 
             # Fix bad include paths
-            resolved_include = self.resolve_include(includer, path_used)
-            if not resolved_include:
-                try:
-                    correct_include = Path(included).relative_to(self.inc)
-                except ValueError:
-                    print("Couldn't figure out how to refer to",
-                          self.shorten(included), "when including from", self.shorten(includer))
-                    possible_public.add(included)
-                    continue
-                changes = True
-                self.modify_include(includer, path_used, correct_include)
-                continue
-            if G.edges[includer, included]['angle_include']:
-                # Can't improve an angle-include.
-                continue
+            # resolved_include = self.resolve_include(includer, path_used)
+            # if not resolved_include:
+            #     try:
+            #         correct_include = Path(included).relative_to(self.inc)
+            #     except ValueError:
+            #         print("Couldn't figure out how to refer to",
+            #               self.shorten(included), "when including from", self.shorten(includer))
+            #         possible_public.add(included)
+            #         continue
+            #     # changes = True
+            #     # # Just cache this for later, in case we need to move files
+                # include_fixes.append((includer, path_used, correct_include))
+                # continue
+            angle_include = G.edges[includer, included]['angle_include']
+            # if G.edges[includer, included]['angle_include']:
+            #     # Can't improve an angle-include.
+            #     continue
 
             # Shorten up quote include
             best_include = self.make_most_concise_include(
-                includer, resolved_include)
+                includer,
+                included,
+                angle_include=angle_include
+                #    resolved_include
+            )
+            if not best_include:
+                print("Couldn't figure out how to refer to",
+                      self.shorten(included), "when including from", self.shorten(includer))
+                possible_public.add(included)
+                continue
+            if angle_include:
+                continue
             if best_include != path_used:
-                print('Can improve include from "{}" to "{}"'.format(
-                    path_used, best_include))
-                changes = True
-                self.modify_include(includer, path_used, best_include)
+                # print('Can improve include from "{}" to "{}"'.format(
+                #     path_used, best_include))
+                #changes = True
+                include_fixes.append((includer, path_used, best_include))
         if possible_public:
             print("These headers might need to be made public:")
             for fn in possible_public:
                 print("  -", self.shorten(fn))
-        return changes, possible_public
+            return True, possible_public
+        if include_fixes:
+            for includer, path_used, correct_include in include_fixes:
+                self.modify_include(includer, path_used, correct_include)
+            return True, None
+        return False, None
 
 
 ROOT = Path(__file__).resolve().parent
