@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "ImageSourceFactories.h"
+#include "unifiedvideoinertial/ImageSources/ImageSourceFactories.h"
 #include <FlexKalman/TimeValue.h>
 
 // Library/third-party includes

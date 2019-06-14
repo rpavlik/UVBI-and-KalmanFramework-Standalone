@@ -19,6 +19,7 @@ set(HEADER_LOCATION ${INCLUDE_SOURCE_DIR}/unifiedvideoinertial)
 set(API
     "${HEADER_LOCATION}/BodyIdTypes.h"
     "${HEADER_LOCATION}/ConfigParams.h"
+    "${HEADER_LOCATION}/ImageProcessing.h"
     "${HEADER_LOCATION}/TrackingSystem.h"
 )
 add_library(uvbi-core STATIC
@@ -41,7 +42,6 @@ add_library(uvbi-core STATIC
     HDKLedIdentifierFactory.cpp
     HDKLedIdentifierFactory.h
     HistoryContainer.h
-    ImageProcessing.h
     ImagePointMeasurement.h
     IMUStateMeasurements.h
     LED.cpp
@@ -91,6 +91,8 @@ target_link_libraries(uvbi-core
     variant-lite
     $<BUILD_INTERFACE:eigen-headers>
     PRIVATE
+    videotrackershared_core
+    videotrackershared_io
     util-headers)
 # target_include_directories(uvbi-core
 #     PUBLIC

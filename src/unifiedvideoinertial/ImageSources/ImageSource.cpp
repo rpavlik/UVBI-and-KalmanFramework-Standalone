@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "ImageSource.h"
+#include "unifiedvideoinertial/ImageSources/ImageSource.h"
 
 // Library/third-party includes
 #include <opencv2/imgproc/imgproc.hpp>

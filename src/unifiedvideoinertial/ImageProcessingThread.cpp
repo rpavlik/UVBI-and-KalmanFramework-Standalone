@@ -27,7 +27,7 @@
 #include "TrackerThread.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 
-#include "ImageSources/ImageSource.h"
+#include "unifiedvideoinertial/ImageSources/ImageSource.h"
 
 // Library/third-party includes
 #include <FlexKalman/Finally.h>

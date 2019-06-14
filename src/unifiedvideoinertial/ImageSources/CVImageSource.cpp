@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "ImageSourceFactories.h"
+#include "unifiedvideoinertial/ImageSources/ImageSourceFactories.h"
 
 // Library/third-party includes
 #include <opencv2/highgui/highgui.hpp> // for image capture

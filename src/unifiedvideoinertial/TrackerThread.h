@@ -27,10 +27,9 @@
 // Internal Includes
 #include "IMUMessage.h"
 #include "ThreadsafeBodyReporting.h"
+#include "unifiedvideoinertial/ImageSources/ImageSource.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 #include "videotrackershared/CameraParameters.h"
-
-#include "ImageSources/ImageSource.h"
 
 // Library/third-party includes
 #include <FlexKalman/ClientReportTypesC.h>

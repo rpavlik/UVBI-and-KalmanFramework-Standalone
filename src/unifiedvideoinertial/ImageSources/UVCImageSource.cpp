@@ -24,8 +24,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "ImageSource.h"
-#include "ImageSourceFactories.h"
+#include "unifiedvideoinertial/ImageSources/ImageSourceFactories.h"
 
 // Library/third-party includes
 #include <libuvc/libuvc.h>
