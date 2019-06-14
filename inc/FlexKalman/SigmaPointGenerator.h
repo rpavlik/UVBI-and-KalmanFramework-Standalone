@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include <FlexKalman/FlexibleKalmanBase.h>
+#include "FlexibleKalmanBase.h"
 
 // Library/third-party includes
 #include <Eigen/Cholesky>

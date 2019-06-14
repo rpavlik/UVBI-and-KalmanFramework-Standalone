@@ -25,9 +25,9 @@
 #pragma once
 
 // Internal Includes
-#include <FlexKalman/CSV.h>
-#include <FlexKalman/MathTypesC.h>
-#include <FlexKalman/TimeValue.h>
+#include "CSV.h"
+#include "MathTypesC.h"
+#include "TimeValue.h"
 
 // Library/third-party includes
 // - none

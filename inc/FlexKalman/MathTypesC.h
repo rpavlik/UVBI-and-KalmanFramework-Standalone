@@ -32,7 +32,7 @@
 #pragma once
 
 /* Internal Includes */
-#include <FlexKalman/APIBaseC.h>
+#include "APIBaseC.h"
 
 /* Library/third-party includes */
 /* none */

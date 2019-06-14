@@ -26,12 +26,12 @@
 #pragma once
 
 // Internal Includes
-#include <FlexKalman/MathTypesC.h>
+#include "MathTypesC.h"
 
 // Library/third-party includes
+#include "EigenExtras.h"
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include <FlexKalman/EigenExtras.h>
 
 // Standard includes
 // - none

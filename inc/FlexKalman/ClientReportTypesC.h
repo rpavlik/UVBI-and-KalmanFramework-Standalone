@@ -29,7 +29,7 @@
 #pragma once
 
 /* Internal Includes */
-#include <FlexKalman/MathTypesC.h>
+#include "MathTypesC.h"
 
 /* Library/third-party includes */
 /* none */

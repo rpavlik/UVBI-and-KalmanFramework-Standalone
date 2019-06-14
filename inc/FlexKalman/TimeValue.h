@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include <FlexKalman/TimeValueC.h>
+#include "TimeValueC.h"
 
 // Library/third-party includes
 // - none

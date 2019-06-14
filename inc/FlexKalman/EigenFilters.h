@@ -25,10 +25,10 @@
 #pragma once
 
 // Internal Includes
+#include "EigenExtras.h"
+#include "EigenQuatExponentialMap.h"
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include <FlexKalman/EigenExtras.h>
-#include <FlexKalman/EigenQuatExponentialMap.h>
 
 // Library/third-party includes
 // - none
