@@ -100,23 +100,36 @@ class FileMigrationBase:
         ret = set(collection)
         for fn in collection:
             includes = set(self.get_transitive_includes(fn))
-            # if 'LedMeasurement' in fn:
-            #     print(fn)
-            #     print("    includes", includes)
             ret = ret.union(includes)
         return ret
 
-    def resolve_include(self, includer, path_included):
+    def get_include_search_path_for(self, includer):
         includer = Path(includer)
         assert(includer.is_absolute())
         includer_dir = includer.parent
         search_path = [includer_dir]
         search_path.extend(self.include_dirs)
+        return search_path
+
+    def resolve_include(self, includer, path_included):
+        search_path = self.get_include_search_path_for(includer)
         full_include, resolved = self.find_in_dir_list(
             path_included, search_path)
         if not resolved:
             return None
         return full_include
+
+    def make_most_concise_include(self, includer, resolved_include):
+        resolved_include = Path(resolved_include)
+        assert(resolved_include.is_absolute())
+        search_path = self.get_include_search_path_for(includer)
+        for d in search_path:
+            try:
+                relative = resolved_include.relative_to(d)
+                return str(relative)
+            except ValueError:
+                continue
+        raise RuntimeError("Could not find this file in the search path!")
 
 
 class UVBIFileMigration(FileMigrationBase):
@@ -170,13 +183,26 @@ class UVBIFileMigration(FileMigrationBase):
         except ValueError:
             return str(fn)
 
+    def modify_include(self, fn, old_include, new_include):
+        pattern = 's:{}:{}:'.format(
+            # Escape periods
+            old_include.replace(".", r"\."),
+            new_include)
+        cmd = ['sed', '-i', pattern, str(fn)]
+        print("Fixing include in", self.shorten(fn),
+              "by applying substitution:", pattern)
+        subprocess.check_call(cmd)
+
     def fix_includes(self):
         G = self.graph
         possible_public = set()
+        changes = False
         for includer, included, path_used in G.edges(data='include_path'):
             if not self.file_known(included):
                 # Skip system/external dep includes
                 continue
+
+            # Fix bad include paths
             resolved_include = self.resolve_include(includer, path_used)
             if not resolved_include:
                 try:
@@ -186,14 +212,26 @@ class UVBIFileMigration(FileMigrationBase):
                           self.shorten(included), "when including from", self.shorten(includer))
                     possible_public.add(included)
                     continue
-                cmd = [
-                    'sed', '-i', 's:{}:{}:'.format(path_used, correct_include), includer]
-                print("Fixing include: running", cmd)
-                subprocess.check_call(cmd)
-        print("These headers might need to be made public:")
-        for fn in possible_public:
-            print("  -", self.shorten(fn))
-        return possible_public
+                changes = True
+                self.modify_include(includer, path_used, correct_include)
+                continue
+            if G.edges[includer, included]['angle_include']:
+                # Can't improve an angle-include.
+                continue
+
+            # Shorten up quote include
+            best_include = self.make_most_concise_include(
+                includer, resolved_include)
+            if best_include != path_used:
+                print('Can improve include from "{}" to "{}"'.format(
+                    path_used, best_include))
+                changes = True
+                self.modify_include(includer, path_used, best_include)
+        if possible_public:
+            print("These headers might need to be made public:")
+            for fn in possible_public:
+                print("  -", self.shorten(fn))
+        return changes, possible_public
 
 
 ROOT = Path(__file__).resolve().parent
@@ -214,10 +252,11 @@ while True:
         # migration = UVBIFileMigration(ROOT)
 
     print("Correcting include lines")
-    possible_public = migration.fix_includes()
-    if not possible_public:
+    changes, possible_public = migration.fix_includes()
+    if not changes:
         print("Processing done!")
         break
 
-    print("Moving those headers to become public")
-    migration.make_headers_public(possible_public)
+    if possible_public:
+        print("Moving those headers to become public")
+        migration.make_headers_public(possible_public)
