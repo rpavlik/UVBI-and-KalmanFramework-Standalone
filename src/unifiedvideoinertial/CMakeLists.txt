@@ -113,8 +113,6 @@ if(BUILD_TESTING)
         TestIMU_EKF.cpp
         TestIMU_UKF.cpp)
     target_link_libraries(uvbi-test-imu PRIVATE uvbi-core kf-catch2-interface)
-    set_target_properties(uvbi-test-imu PROPERTIES
-        FOLDER "${PROJ_FOLDER}")
     add_test(NAME TestIMU COMMAND uvbi-test-imu)
 endif()
 

@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "FlexKalman/CSVCellGroup.h"
+// - none
 
 // Library/third-party includes
 #include <Eigen/Core>
@@ -33,6 +33,8 @@
 
 // Standard includes
 // - none
+
+#include "FlexKalman/CSVCellGroup.h" // must include after Eigen
 
 namespace osvr {
 namespace util {

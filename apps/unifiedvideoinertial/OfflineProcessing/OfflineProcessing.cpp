@@ -25,7 +25,6 @@
 #define KALMANFRAMEWORK_HAVE_BOOST
 
 // Internal Includes
-#include "FlexKalman/CSVCellGroup.h"
 #include "GenerateBlobDebugImage.h"
 #include "QuatToEuler.h"
 #include "unifiedvideoinertial/ConfigParams.h"
@@ -41,6 +40,7 @@
 #include <FlexKalman/TimeValue.h>
 
 // Library/third-party includes
+#include <Eigen/Core>
 #include <boost/algorithm/string/predicate.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -53,6 +53,8 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+
+#include "FlexKalman/CSVCellGroup.h" // must include after Eigen
 
 namespace osvr {
 namespace vbtracker {
