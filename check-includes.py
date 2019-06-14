@@ -143,22 +143,27 @@ class FileMigrationBase:
         return None
 
 
+def dir_list_from_modules(inc, src, modules):
+    dirs_to_process = [inc / m for m in modules]
+    dirs_to_process.extend((src / m for m in modules))
+    return dirs_to_process
+
+
 class UVBIFileMigration(FileMigrationBase):
-    def __init__(self, root):
+    def __init__(self, root, active_modules, inactive_modules):
         self.root = Path(root).resolve()
         self.inc = self.root / 'inc'
         self.inc_dir_name = str(self.inc)
         self.src = self.root / 'src'
-        modules = (
-            'FlexKalman',
-            'videotrackershared',
-            Path('videotrackershared')/'ImageSources',
-            'unifiedvideoinertial'
-        )
-        dirs_to_process = [self.inc / m for m in modules]
-        dirs_to_process.extend((self.src / m for m in modules))
-        super().__init__(parse_dirs=dirs_to_process, extra_search_dirs=(
-            self.inc, self.src), include_dirs=(self.inc,))
+        self.banned_dirs = dir_list_from_modules(
+            self.inc, self.src, inactive_modules)
+
+        extra_dirs = [self.inc, self.src] + self.banned_dirs
+        super().__init__(
+            parse_dirs=dir_list_from_modules(
+                self.inc, self.src, active_modules),
+            extra_search_dirs=extra_dirs,
+            include_dirs=(self.inc,))
 
     def is_public_header(self, fn):
         return str(fn).startswith(self.inc_dir_name)
@@ -252,6 +257,29 @@ class UVBIFileMigration(FileMigrationBase):
         # No changes
         return False, None
 
+    def check_for_banned_dirs(self):
+        problems = []
+        for includer, included, _path_used in self.graph.edges(data='include_path'):
+            included = Path(included)
+            if not included.is_absolute():
+                included, resolved = self.find_in_dir_list(included)
+                if not resolved:
+                    print("Could not resolve this file, skipping ban check", included)
+                    continue
+            for d in self.banned_dirs:
+                try:
+                    _ = included.relative_to(d)
+                    problems.append((includer, included))
+                    break
+                except ValueError:
+                    continue
+        if problems:
+            print("Found these banned cross-module includes:")
+            for includer, included in problems:
+                print(self.shorten(includer),
+                      "tries to include", self.shorten(included))
+            raise RuntimeError("Banned cross-module includes found")
+
 
 ROOT = Path(__file__).resolve().parent
 
@@ -261,21 +289,38 @@ ROOT = Path(__file__).resolve().parent
 # with open('includes.json', 'w', encoding='utf-8') as fp:
 #     json.dump(json_graph.node_link_data(migration.graph), fp, indent=4)
 
-while True:
-    migration = UVBIFileMigration(ROOT)
+def do_fixup_loop(root, active_modules, inactive_modules):
+    print()
+    print("Running fixup loop")
+    print("    Active modules:", active_modules)
+    print("    Inactive modules:", inactive_modules)
+    while True:
+        migration = UVBIFileMigration(root, active_modules, inactive_modules)
 
-    print("Ensuring includes of public headers are public...")
-    if migration.fix_public_transitive_headers():
-        print("Some headers moved!")
-        continue
-        # migration = UVBIFileMigration(ROOT)
+        print("Ensuring includes of public headers are public...")
+        if migration.fix_public_transitive_headers():
+            print("Some headers moved!")
+            continue
+            # migration = UVBIFileMigration(ROOT)
 
-    print("Correcting include lines")
-    changes, possible_public = migration.fix_includes()
-    if not changes:
-        print("Processing done!")
-        break
+        print("Correcting include lines")
+        changes, possible_public = migration.fix_includes()
+        if not changes:
+            print("Processing done!")
+            break
 
-    if possible_public:
-        print("Moving those headers to become public")
-        migration.make_headers_public(possible_public)
+        if possible_public:
+            print("Moving those headers to become public")
+            migration.make_headers_public(possible_public)
+
+    migration.check_for_banned_dirs()
+
+modules = [
+    'FlexKalman',
+    'videotrackershared',
+    Path('videotrackershared')/'ImageSources',
+    'unifiedvideoinertial'
+]
+
+for i in range(len(modules)):
+    do_fixup_loop(ROOT, modules[:i+1], modules[i+1:])
