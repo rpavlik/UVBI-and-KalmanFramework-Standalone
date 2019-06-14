@@ -13,14 +13,14 @@ from networkx.readwrite import json_graph
 
 
 class FileMigrationBase:
-    def __init__(self, parse_dirs, extra_search_dirs, include_dirs):
+    def __init__(self, dirs, extra_search_dirs, include_dirs):
         self.graph = nx.DiGraph()
         self.include_re = re.compile(
             r'^ *# *include *(?P<quoted_name>(?P<open>["<])(?P<name>[^">]*)[">])')
-        self.parse_dirs = set(parse_dirs)
-        self.all_dirs = self.parse_dirs.union(extra_search_dirs)
+        self.dirs = set(dirs)
+        self.all_dirs = self.dirs.union(extra_search_dirs)
         self.include_dirs = include_dirs
-        for d in self.parse_dirs:
+        for d in self.dirs:
             self.parse_dir(d)
 
     def find_in_dir_list(self, rel_path, dirs=None, try_drop_leading_path=False):
@@ -149,6 +149,24 @@ def dir_list_from_modules(inc, src, modules):
     return dirs_to_process
 
 
+APPS_BY_MODULE = {
+    'videotrackershared': ('BlobExtractionDemo',),
+    'unifiedvideoinertial': ('camera-latency-testing',
+                             'OfflineProcessing',
+                             'ParameterFinder',
+                             'ViewTrackingCamera',)
+}
+
+
+def apps_for_modules(root, modules):
+    ret = []
+    for mod in modules:
+        apps = APPS_BY_MODULE.get(str(mod))
+        if apps:
+            ret.extend((root/'apps'/mod/app for app in apps))
+    return ret
+
+
 class UVBIFileMigration(FileMigrationBase):
     def __init__(self, root, active_modules, inactive_modules):
         self.root = Path(root).resolve()
@@ -157,11 +175,13 @@ class UVBIFileMigration(FileMigrationBase):
         self.src = self.root / 'src'
         self.banned_dirs = dir_list_from_modules(
             self.inc, self.src, inactive_modules)
+        dirs = dir_list_from_modules(
+            self.inc, self.src, active_modules)
+        dirs.extend(apps_for_modules(root, active_modules))
 
         extra_dirs = [self.inc, self.src] + self.banned_dirs
         super().__init__(
-            parse_dirs=dir_list_from_modules(
-                self.inc, self.src, active_modules),
+            dirs=dirs,
             extra_search_dirs=extra_dirs,
             include_dirs=(self.inc,))
 
@@ -315,6 +335,7 @@ def do_fixup_loop(root, active_modules, inactive_modules):
 
     migration.check_for_banned_dirs()
 
+
 modules = [
     'FlexKalman',
     'videotrackershared',
@@ -322,5 +343,44 @@ modules = [
     'unifiedvideoinertial'
 ]
 
-for i in range(len(modules)):
-    do_fixup_loop(ROOT, modules[:i+1], modules[i+1:])
+
+def process(root):
+    for i in range(len(modules)):
+
+        active_modules = modules[:i+1]
+        inactive_modules = modules[i+1:]
+        print()
+        print("------------------------------------")
+        print("    Active modules:", active_modules)
+        print("    Inactive modules:", inactive_modules)
+
+        migration = UVBIFileMigration(root, active_modules, inactive_modules)
+
+        print("Ensuring includes of public headers are public...")
+        if migration.fix_public_transitive_headers():
+            print("Some headers moved!")
+            return True
+
+        print("Correcting include lines")
+        changes, possible_public = migration.fix_includes()
+
+        if possible_public:
+            print("Moving those headers to become public")
+            migration.make_headers_public(possible_public)
+
+        if changes:
+            return True
+
+    migration.check_for_banned_dirs()
+
+
+for m in modules:
+    print(m)
+    print(apps_for_modules(ROOT, (m,)))
+
+# sys.exit(0)
+while True:
+    if process(ROOT):
+        print("Changes made, repeating")
+    else:
+        break
