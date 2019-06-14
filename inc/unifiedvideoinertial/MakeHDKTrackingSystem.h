@@ -28,8 +28,8 @@
 #include "BeaconSetupData.h"
 #include "RangeTransform.h"
 #include "TrackedBody.h"
-#include "unifiedvideoinertial/ConfigParams.h"
-#include "unifiedvideoinertial/TrackingSystem.h"
+#include "ConfigParams.h"
+#include "TrackingSystem.h"
 #include "videotrackershared/HDKData.h"
 
 #include "videotrackershared/LoadCalibration.h"

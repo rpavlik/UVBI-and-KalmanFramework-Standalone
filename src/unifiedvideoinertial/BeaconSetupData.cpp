@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "BeaconSetupData.h"
+#include "unifiedvideoinertial/BeaconSetupData.h"
 
 // Library/third-party includes
 // - none
@@ -299,7 +299,7 @@ namespace vbtracker {
         patterns[beacon.value()].clear();
     }
 
-    // Implementation of method in BeaconSetupData.h
+    // Implementation of method in unifiedvideoinertial/BeaconSetupData.h
     TargetDataSummary TargetSetupData::cleanAndValidate(bool silent) {
         TargetDataSummary ret;
         TargetDataChecker checker(*this, ret);

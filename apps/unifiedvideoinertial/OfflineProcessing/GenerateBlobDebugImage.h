@@ -25,8 +25,8 @@
 #pragma once
 
 // Internal Includes
-#include "EdgeHoleBasedLedExtractor.h"
-#include "cvUtils.h"
+#include "videotrackershared/EdgeHoleBasedLedExtractor.h"
+#include "videotrackershared/cvUtils.h"
 
 // Library/third-party includes
 #include <opencv2/core/core.hpp>

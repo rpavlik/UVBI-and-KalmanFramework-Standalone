@@ -29,7 +29,7 @@
 #include "BeaconSetupData.h"
 #include "ModelTypes.h"
 #include "Types.h"
-#include "unifiedvideoinertial/BodyIdTypes.h"
+#include "BodyIdTypes.h"
 #include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes

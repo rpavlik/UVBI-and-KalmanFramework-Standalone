@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "BeaconIdTypes.h"
+#include "unifiedvideoinertial/BeaconIdTypes.h"
 #include "LED.h"
 #include "videotrackershared/LedMeasurement.h"
 

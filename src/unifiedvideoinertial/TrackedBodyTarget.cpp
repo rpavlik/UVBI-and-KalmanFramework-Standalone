@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
 #include "AssignMeasurementsToLeds.h"
 #include "BodyTargetInterface.h"
 #include "HDKLedIdentifier.h"
@@ -32,7 +32,7 @@
 #include "PoseEstimator_RANSAC.h"
 #include "PoseEstimator_RANSACKalman.h"
 #include "PoseEstimator_SCAATKalman.h"
-#include "TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "videotrackershared/cvToEigen.h"
 #include <FlexKalman/CSV.h>
 #include <FlexKalman/CSVCellGroup.h>

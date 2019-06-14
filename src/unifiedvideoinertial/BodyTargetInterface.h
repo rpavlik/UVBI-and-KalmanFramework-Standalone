@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "ModelTypes.h"
+#include "unifiedvideoinertial/ModelTypes.h"
 
 // Library/third-party includes
 // - none

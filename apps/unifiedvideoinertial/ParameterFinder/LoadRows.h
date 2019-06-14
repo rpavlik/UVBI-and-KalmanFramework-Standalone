@@ -26,9 +26,9 @@
 
 // Internal Includes
 #include "CSVTools.h"
-#include "ImageProcessing.h"
-#include "LedMeasurement.h"
-#include "MakeHDKTrackingSystem.h"
+#include "unifiedvideoinertial/ImageProcessing.h"
+#include "videotrackershared/LedMeasurement.h"
+#include "unifiedvideoinertial/MakeHDKTrackingSystem.h"
 #include "UtilityFunctions.h"
 
 #include <FlexKalman/Finally.h>

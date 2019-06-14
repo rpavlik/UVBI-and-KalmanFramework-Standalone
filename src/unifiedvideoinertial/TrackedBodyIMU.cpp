@@ -25,7 +25,7 @@
 // Internal Includes
 #include "TrackedBodyIMU.h"
 #include "AngVelTools.h"
-#include "TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 #include <FlexKalman/EigenExtras.h>
 

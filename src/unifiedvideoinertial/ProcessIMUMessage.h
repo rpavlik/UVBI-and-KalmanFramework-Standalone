@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "IMUMessage.h"
-#include "TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "TrackedBodyIMU.h"
 
 // Library/third-party includes

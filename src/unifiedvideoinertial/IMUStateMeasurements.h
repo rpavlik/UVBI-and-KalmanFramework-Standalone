@@ -27,7 +27,7 @@
 // Internal Includes
 #include "AngVelTools.h"
 #include "CrossProductMatrix.h"
-#include "ModelTypes.h"
+#include "unifiedvideoinertial/ModelTypes.h"
 #include "SpaceTransformations.h"
 
 // Library/third-party includes

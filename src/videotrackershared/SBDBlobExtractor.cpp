@@ -23,7 +23,7 @@
 // limitations under the License.
 
 // Internal Includes
-#include "videotrackershared/SBDBlobExtractor.h"
+#include "videotrackershared/SBDvideotrackershared/BlobExtractor.h"
 #include "videotrackershared/BlobExtractor.h"
 #include "videotrackershared/UVBIAssert.h"
 #include "videotrackershared/cvUtils.h"

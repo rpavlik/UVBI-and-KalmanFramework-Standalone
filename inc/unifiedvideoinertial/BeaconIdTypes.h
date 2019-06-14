@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "unifiedvideoinertial/BodyIdTypes.h"
+#include "BodyIdTypes.h"
 #include "videotrackershared/UVBIAssert.h"
 
 // Library/third-party includes

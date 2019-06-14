@@ -28,9 +28,9 @@
 #include "ImageProcessingThread.h"
 #include "ProcessIMUMessage.h"
 #include "SpaceTransformations.h"
-#include "TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "TrackedBodyIMU.h"
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
 
 // Library/third-party includes
 #include <FlexKalman/EigenInterop.h>

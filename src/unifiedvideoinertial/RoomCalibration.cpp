@@ -28,7 +28,7 @@
 
 // Internal Includes
 #include "RoomCalibration.h"
-#include "Assumptions.h"
+#include "unifiedvideoinertial/Assumptions.h"
 #include "ForEachTracked.h"
 #include "TrackedBodyIMU.h"
 

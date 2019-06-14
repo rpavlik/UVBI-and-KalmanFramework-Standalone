@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "LedIdentifier.h"
-#include "Types.h"
+#include "unifiedvideoinertial/Types.h"
 
 // Library/third-party includes
 // - none

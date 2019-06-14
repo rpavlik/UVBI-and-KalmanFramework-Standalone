@@ -25,7 +25,7 @@
 #pragma once
 
 // Internal Includes
-#include "CSVCellGroup.h"
+#include "FlexKalman/CSVCellGroup.h"
 
 // Library/third-party includes
 #include <Eigen/Core>

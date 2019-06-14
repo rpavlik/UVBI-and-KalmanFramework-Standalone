@@ -24,8 +24,8 @@
 
 // Internal Includes
 #include "TrackingDebugDisplay.h"
-#include "TrackedBody.h"
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 #include "videotrackershared/CameraParameters.h"
 #include "videotrackershared/SBDBlobExtractor.h"

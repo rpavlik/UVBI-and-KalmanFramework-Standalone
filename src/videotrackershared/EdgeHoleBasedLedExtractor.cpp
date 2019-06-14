@@ -28,7 +28,7 @@
 #include "videotrackershared/cvUtils.h"
 
 #ifdef UVBI_USE_REALTIME_LAPLACIAN
-#include "videotrackershared/RealtimeLaplacian.h"
+#include "RealtimeLaplacian.h"
 #endif
 
 // Library/third-party includes

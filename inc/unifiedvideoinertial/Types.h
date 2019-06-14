@@ -26,7 +26,7 @@
 
 // Internal Includes
 #include "Assumptions.h"
-#include "unifiedvideoinertial/ConfigParams.h"
+#include "ConfigParams.h"
 #include "videotrackershared/BasicTypes.h"
 
 // Library/third-party includes

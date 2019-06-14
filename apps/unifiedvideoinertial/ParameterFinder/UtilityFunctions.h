@@ -27,7 +27,7 @@
 // Internal Includes
 #include <FlexKalman/TimeValue.h>
 
-#include "LedMeasurement.h"
+#include "videotrackershared/LedMeasurement.h"
 
 // Library/third-party includes
 #include <Eigen/Core>

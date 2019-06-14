@@ -25,8 +25,8 @@
 #pragma once
 
 // Internal Includes
-#include "CannedIMUMeasurement.h"
-#include "ModelTypes.h"
+#include "unifiedvideoinertial/CannedIMUMeasurement.h"
+#include "unifiedvideoinertial/ModelTypes.h"
 
 // Library/third-party includes
 #include <FlexKalman/TimeValue.h>

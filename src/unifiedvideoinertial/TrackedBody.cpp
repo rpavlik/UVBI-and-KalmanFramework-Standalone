@@ -23,14 +23,14 @@
 // limitations under the License.
 
 // Internal Includes
-#include "TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBody.h"
 #include "ApplyIMUToState.h"
 #include "BodyTargetInterface.h"
-#include "CannedIMUMeasurement.h"
+#include "unifiedvideoinertial/CannedIMUMeasurement.h"
 #include "HistoryContainer.h"
 #include "StateHistory.h"
 #include "TrackedBodyIMU.h"
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 
 // Library/third-party includes

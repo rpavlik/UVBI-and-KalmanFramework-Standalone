@@ -25,8 +25,8 @@
 #pragma once
 
 // Internal Includes
-#include "TrackedBody.h"
-#include "TrackedBodyTarget.h"
+#include "unifiedvideoinertial/TrackedBody.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
 #include "unifiedvideoinertial/TrackingSystem.h"
 
 // Library/third-party includes

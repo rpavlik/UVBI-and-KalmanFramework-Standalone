@@ -27,8 +27,8 @@
 // Internal Includes
 #include "CannedIMUMeasurement.h"
 #include "ModelTypes.h"
-#include "unifiedvideoinertial/BodyIdTypes.h"
-#include "unifiedvideoinertial/ConfigParams.h"
+#include "BodyIdTypes.h"
+#include "ConfigParams.h"
 
 // Library/third-party includes
 #include "videotrackershared/UVBIAssert.h"

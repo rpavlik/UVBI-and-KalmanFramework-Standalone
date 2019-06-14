@@ -25,9 +25,9 @@
 #pragma once
 
 // Internal Includes
-#include "ModelTypes.h"
-#include "TrackedBodyTarget.h"
-#include "Types.h"
+#include "unifiedvideoinertial/Modelunifiedvideoinertial/Types.h"
+#include "unifiedvideoinertial/TrackedBodyTarget.h"
+#include "unifiedvideoinertial/Types.h"
 #include "unifiedvideoinertial/ConfigParams.h"
 #include "videotrackershared/CameraParameters.h"
 
