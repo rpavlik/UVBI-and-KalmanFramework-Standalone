@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-from itertools import chain
-from pprint import pprint
-from pathlib import Path
-import subprocess
-import networkx as nx
-from networkx.readwrite import json_graph
 import json
 import re
+import subprocess
+import sys
+from itertools import chain
+from pathlib import Path
+from pprint import pprint
+
+import networkx as nx
+from networkx.readwrite import json_graph
 
 INCLUDE_RE = re.compile(r'#include "(?P<file>[^/]*)"')
 
@@ -54,10 +56,10 @@ class FileMigration:
         G = self.graph
         name = fn.name
         current_file_node = str(fn)
-        G.add_node(current_file_node,
-                   path=str(fn),
-                   public=public,
-                   known=True)
+        G.add_node(current_file_node)
+        G.nodes[current_file_node]['public'] = public
+        G.nodes[current_file_node]['known'] = True
+        G.nodes[current_file_node]['path'] = str(fn)
         with open(str(fn), 'r', encoding='utf') as fp:
             for line in fp:
                 line = line.rstrip()
@@ -68,7 +70,8 @@ class FileMigration:
                 include_name = match.group('name')
                 path, resolved = find_in_dir_list(include_name, ALL_DIRS)
                 if not resolved:
-                    path, resolved = find_in_dir_list(Path(include_name).name, ALL_DIRS)
+                    path, resolved = find_in_dir_list(
+                        Path(include_name).name, ALL_DIRS)
                     if resolved:
                         print("Had to strip path from", include_name)
                 if not resolved:
@@ -109,13 +112,6 @@ G = migration.graph
 
 moves = []
 
-# for filename in G:
-#     if G.nodes[filename]['system_header']:
-#         continue
-#     print(filename, list(G.successors(filename)))
-
-# pprint(json_graph.node_link_data(G))
-
 with open('includes.json', 'w', encoding='utf-8') as fp:
     json.dump(json_graph.node_link_data(G), fp, indent=4)
 
@@ -140,6 +136,8 @@ must_move = set(x for x in transitive if x not in public_headers)
 # must_move = (h for h in transitive if not G.node[h].get('public'))
 print(list(must_move))
 
+if must_move:
+    sys.exit(1)
 for includer, included, path_used in G.edges(data='include_path'):
     if not migration.file_known(included):
         continue
@@ -159,30 +157,3 @@ for includer, included, path_used in G.edges(data='include_path'):
             'sed', '-i', 's:{}:{}:'.format(path_used, Path(included).relative_to(INC)), includer]
         print("Running", cmd)
         subprocess.check_call(cmd)
-        # print(includer, "includes", path_used,
-        #       "but should include", Path(included).relative_to(INC))
-#     found = [(d/path_used).is_file() for d in (includer_dir, INC)]
-#     local_include = includer_dir / path_used
-#     common_include = INC / path_used
-#     if local_include.is_file():
-#         # it's fine
-#         continue
-#     if common_include.is_file():
-#         # it's fine
-#         continue
-
-#     if 'path' not in included_attrs:
-
-#         print("Include issue:",
-#               includer_attrs['path'],
-#               "tries to include", included)
-#         continue
-#     included_path = included_attrs['path']
-#     if includer_attrs['public'] and not included_attrs['public']:
-#         # Must make public
-#         move = (
-#             included_path,
-#             INC / (included_path.relative_to(SRC))
-#         )
-#         print("move:", move)
-#         # moves.append()
