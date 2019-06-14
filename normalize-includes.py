@@ -24,6 +24,7 @@ class FileMigrationBase:
         self.dirs = set(dirs)
         self.all_dirs = self.dirs.union(extra_search_dirs)
         self.include_dirs = include_dirs
+        self._reversed = None
         for d in self.dirs:
             self.parse_dir(d)
 
@@ -51,6 +52,7 @@ class FileMigrationBase:
         """Add a file to the graph, and read and parse its includes into the graph."""
         if not fn.is_file():
             return
+        self._reversed = None
         G = self.graph
         current_file_node = str(fn)
         G.add_node(current_file_node)
@@ -74,6 +76,12 @@ class FileMigrationBase:
                            include_path=include_name,
                            angle_include=angle_include)
 
+    @property
+    def reversed(self):
+        if self._reversed is None:
+            self._reversed = self.graph.reverse(copy=True)
+        return self._reversed
+
     def parse_dir(self, d, **kwargs):
         """Process all source and header files in a directory."""
         for fn in d.glob('*.h'):
@@ -92,11 +100,11 @@ class FileMigrationBase:
         return str(fn)
 
     def get_transitive_includers(self, fn):
-        """Get a list of all files that (transitively) include fn."""
+        """Get a set of all files that (transitively) include fn."""
         fn = self.make_fn_absolute(fn)
         if fn not in self.graph:
             raise RuntimeError(str(fn) + " not in graph")
-        return list(nx.dfs_preorder_nodes(nx.reversed(self.graph), fn))
+        return set(nx.dfs_preorder_nodes(self.reversed, fn))
 
     def get_transitive_includes(self, fn):
         """Get a generator of all files transitively included by fn."""
@@ -305,9 +313,6 @@ class UVBIFileMigration(FileMigrationBase):
             raise RuntimeError("Banned cross-module includes found")
 
 
-ROOT = Path(__file__).resolve().parent
-
-
 # G = migration.graph
 
 # with open('includes.json', 'w', encoding='utf-8') as fp:
@@ -378,13 +383,18 @@ def process(root):
     migration.check_for_banned_dirs()
 
 
-for m in modules:
-    print(m)
-    print(apps_for_modules(ROOT, (m,)))
+def make_uvbi_migration(root):
+    return UVBIFileMigration(root, modules, ())
 
-# sys.exit(0)
-while True:
-    if process(ROOT):
-        print("Changes made, repeating")
-    else:
-        break
+
+def main():
+    ROOT = Path(__file__).resolve().parent
+    while True:
+        if process(ROOT):
+            print("Changes made, repeating")
+        else:
+            break
+
+
+if __name__ == "__main__":
+    main()
