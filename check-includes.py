@@ -214,53 +214,42 @@ class UVBIFileMigration(FileMigrationBase):
                 # Skip system/external dep includes
                 continue
 
-            # Fix bad include paths
-            # resolved_include = self.resolve_include(includer, path_used)
-            # if not resolved_include:
-            #     try:
-            #         correct_include = Path(included).relative_to(self.inc)
-            #     except ValueError:
-            #         print("Couldn't figure out how to refer to",
-            #               self.shorten(included), "when including from", self.shorten(includer))
-            #         possible_public.add(included)
-            #         continue
-            #     # changes = True
-            #     # # Just cache this for later, in case we need to move files
-                # include_fixes.append((includer, path_used, correct_include))
-                # continue
             angle_include = G.edges[includer, included]['angle_include']
-            # if G.edges[includer, included]['angle_include']:
-            #     # Can't improve an angle-include.
-            #     continue
 
-            # Shorten up quote include
+            # Make sure includes can be found,
+            # and shorten up quote includes
             best_include = self.make_most_concise_include(
                 includer,
                 included,
                 angle_include=angle_include
-                #    resolved_include
             )
             if not best_include:
                 print("Couldn't figure out how to refer to",
                       self.shorten(included), "when including from", self.shorten(includer))
                 possible_public.add(included)
                 continue
+
+            # Can only check validity of angle includes, not shorten them.
             if angle_include:
                 continue
             if best_include != path_used:
-                # print('Can improve include from "{}" to "{}"'.format(
-                #     path_used, best_include))
-                #changes = True
                 include_fixes.append((includer, path_used, best_include))
+
+        # If there are headers to make public, do that first
+        # and skip include fixes, since they'll be different after.
         if possible_public:
             print("These headers might need to be made public:")
             for fn in possible_public:
                 print("  -", self.shorten(fn))
             return True, possible_public
+
+        # Only include fixes - do them.
         if include_fixes:
             for includer, path_used, correct_include in include_fixes:
                 self.modify_include(includer, path_used, correct_include)
             return True, None
+
+        # No changes
         return False, None
 
 
