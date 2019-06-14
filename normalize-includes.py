@@ -84,7 +84,7 @@ class FileMigrationBase:
     def make_fn_absolute(self, fn):
         """Make a file absolute by searching by name."""
         fn = Path(fn)
-        if not fn.is_absolute:
+        if not fn.is_absolute():
             new_fn, resolved = self.find_in_dir_list(fn)
             if not resolved:
                 raise RuntimeError("Could not find file " + str(new_fn))
