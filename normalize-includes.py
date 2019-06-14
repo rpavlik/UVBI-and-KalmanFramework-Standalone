@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Copyright 2019, Collabora, Ltd.
+# SPDX-License-Identifier: BSL-1.0
+# Author: Ryan Pavlik
+"""Script to verify and adjust includes for minimal but consistent header usage."""
 
 import json
 import re
