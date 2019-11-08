@@ -42,7 +42,7 @@ inline void dumpKalmanDebugOuput(const char name[], const char expr[],
 #include "FlexKalman/FlexibleUnscentedCorrect.h"
 #include "FlexKalman/PoseConstantVelocity.h"
 #include "FlexKalman/PoseDampedConstantVelocity.h"
-#include "unifiedvideoinertial/IMUStateMeasurements.h"
+// #include "unifiedvideoinertial/IMUStateMeasurements.h"
 
 #include <catch2/catch.hpp>
 
