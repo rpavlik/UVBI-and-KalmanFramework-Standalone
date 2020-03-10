@@ -25,6 +25,10 @@ target_include_directories(typepack-headers INTERFACE "${CMAKE_CURRENT_SOURCE_DI
 add_library(com_smart_pointer INTERFACE)
 target_include_directories(com_smart_pointer INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/com_smart_pointer" ${Boost_INCLUDE_DIRS})
 
+# Interface target for CLI11
+add_library(CLI11-headers INTERFACE)
+target_include_directories(CLI11-headers INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/CLI11")
+
 if(WIN32)
     add_library(comutils-interface INTERFACE)
     target_link_libraries(comutils-interface INTERFACE com_smart_pointer)
