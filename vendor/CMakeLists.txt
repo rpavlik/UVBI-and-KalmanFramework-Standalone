@@ -29,6 +29,11 @@ target_include_directories(com_smart_pointer INTERFACE "${CMAKE_CURRENT_SOURCE_D
 add_library(CLI11-headers INTERFACE)
 target_include_directories(CLI11-headers INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/CLI11")
 
+
+# Interface target for csv-parser
+add_library(csv-headers INTERFACE)
+target_include_directories(csv-headers INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/csv-parser/single_include")
+
 if(WIN32)
     add_library(comutils-interface INTERFACE)
     target_link_libraries(comutils-interface INTERFACE com_smart_pointer)
